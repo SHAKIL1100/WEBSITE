@@ -4,21 +4,265 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GrShop - Premium Accounts Marketplace</title>
-    <link rel="stylesheet" href="./style.css">
+    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #070a13;
+            --card-dark: #0f1424;
+            --input-bg: #171e36;
+            --primary: #3b82f6;
+            --success: #10b981;
+            --error: #ef4444;
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.08);
+            --dropdown-bg: #000000;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Auth Layout */
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 50%);
+        }
+
+        .auth-card {
+            background: var(--card-dark);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .brand {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        .brand span { color: var(--primary); }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus { border-color: var(--primary); }
+
+        .primary-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .primary-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Profile & Dropdown - The Fix */
+        .nav-right { position: relative; }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            color: #fff;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border);
+        }
+
+        .user-profile i.fa-circle-user {
+            font-size: 22px;
+            color: var(--primary);
+        }
+
+        /* Dropdown Menu - Premium Vertical Look */
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 240px;
+            background: var(--dropdown-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column; /* Vertical stack */
+            z-index: 1001;
+        }
+
+        .user-dropdown a {
+            padding: 14px 20px;
+            color: #fff;
+            text-decoration: none; /* No blue underline */
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: 0.2s;
+        }
+
+        .user-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .user-dropdown i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 10px 0;
+        }
+
+        .logout-item {
+            color: var(--error) !important;
+        }
+
+        .logout-item i {
+            color: var(--error) !important;
+        }
+
+        /* Hero & Shop */
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #0f1424, #070a13);
+        }
+
+        .hero h1 { font-size: 42px; margin-bottom: 15px; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; }
+
+        .inventory { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .p-card {
+            background: var(--card-dark);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .p-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        .p-icon { font-size: 36px; margin-bottom: 20px; color: var(--primary); }
+        .p-price { font-size: 22px; font-weight: 700; color: #fff; }
+        .buy-btn { background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+
+        /* Toast */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
+        .toast {
+            background: var(--card-dark);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 14px; }
+    </style>
 </head>
 <body>
 
     <div id="toast-container"></div>
 
-    <!-- Auth Section (Login & Signup) -->
+    <!-- Auth UI -->
     <div id="auth-container" class="auth-wrapper">
         <div class="auth-card">
             <div class="brand">Gr<span>Shop</span></div>
             
-            <!-- Sign In Form -->
-            <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+            <form id="login-form" onsubmit="handleLogin(event)">
                 <h2>Sign In</h2>
                 <div class="input-box">
                     <i class="fa-solid fa-envelope"></i>
@@ -29,11 +273,10 @@
                     <input type="password" id="login-pass" placeholder="Password" required>
                 </div>
                 <button type="submit" class="primary-btn">Login Now</button>
-                <p class="switch-text">Don't have an account? <a href="javascript:void(0)" onclick="toggleAuth('signup')">Sign Up</a></p>
+                <p style="margin-top: 20px; font-size: 14px;">New? <a href="#" onclick="toggleAuth('signup')" style="color: var(--primary); text-decoration: none;">Sign Up</a></p>
             </form>
 
-            <!-- Sign Up Form -->
-            <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
+            <form id="signup-form" class="hidden" onsubmit="handleSignup(event)">
                 <h2>Create Account</h2>
                 <div class="input-box">
                     <i class="fa-solid fa-user"></i>
@@ -48,28 +291,26 @@
                     <input type="password" id="signup-pass" placeholder="Password" required>
                 </div>
                 <button type="submit" class="primary-btn">Register</button>
-                <p class="switch-text">Already have an account? <a href="javascript:void(0)" onclick="toggleAuth('login')">Sign In</a></p>
+                <p style="margin-top: 20px; font-size: 14px;">Already have account? <a href="#" onclick="toggleAuth('login')" style="color: var(--primary); text-decoration: none;">Sign In</a></p>
             </form>
         </div>
     </div>
 
     <!-- Main App UI -->
-    <div id="main-content" class="main-layout hidden">
+    <div id="main-content" class="hidden">
         <nav class="navbar">
             <div class="nav-container">
                 <div class="brand">Gr<span>Shop</span></div>
                 <div class="nav-right">
-                    <!-- Profile Click Area -->
                     <div class="user-profile" id="profile-trigger">
                         <i class="fa-solid fa-circle-user"></i>
                         <span id="display-name">Account</span>
                         <i class="fa-solid fa-chevron-down"></i>
                         
-                        <!-- Account Dropdown Menu -->
                         <div id="user-menu" class="user-dropdown hidden">
                             <a href="javascript:void(0)"><i class="fa-solid fa-wallet"></i> Deposit</a>
                             <a href="javascript:void(0)"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawal</a>
-                            <a href="javascript:void(0)"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                            <a href="javascript:void(0)"><i class="fa-solid fa-list-ul"></i> Transactions</a>
                             <a href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> My account</a>
                             <div class="menu-divider"></div>
                             <a href="javascript:void(0)" onclick="handleLogout()" class="logout-item">
@@ -82,71 +323,153 @@
         </nav>
 
         <header class="hero">
-            <div class="hero-content">
-                <h1>Premium Account Solutions</h1>
-                <p>Trusted bulk provider for Hotmail, Outlook, Telegram, and WhatsApp accounts with instant delivery.</p>
-                <div class="actions">
-                    <a href="#shop" class="primary-btn-link">Browse Inventory</a>
-                    <a href="https://t.me/" target="_blank" class="secondary-btn"><i class="fa-brands fa-telegram"></i> Telegram Support</a>
-                </div>
-            </div>
+            <h1>Premium Account Marketplace</h1>
+            <p>Reliable bulk provider for Hotmail, Outlook, Telegram, and WhatsApp accounts with instant delivery.</p>
         </header>
 
-        <!-- Product Inventory Section -->
-        <section id="shop" class="inventory">
-            <div class="section-header">
-                <h2>Available Inventory</h2>
-                <p>Choose from our verified high-quality accounts.</p>
-            </div>
-            
+        <section class="inventory">
             <div class="product-grid">
                 <div class="p-card">
-                    <div class="p-icon mail-theme"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="p-icon"><i class="fa-solid fa-envelope"></i></div>
                     <h3>Hotmail Accounts</h3>
-                    <p>Verified bulk mailboxes for email marketing.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.10 <small>/ pc</small></span>
-                        <button onclick="buyAlert('Hotmail')" class="buy-btn">Buy Now</button>
+                    <p>High-quality PVA accounts for marketing.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span class="p-price">$0.10</span>
+                        <button onclick="buyAlert('Hotmail')" class="buy-btn">Buy</button>
                     </div>
                 </div>
-
                 <div class="p-card">
-                    <div class="p-icon outlook-theme"><i class="fa-brands fa-microsoft"></i></div>
+                    <div class="p-icon"><i class="fa-brands fa-microsoft"></i></div>
                     <h3>Outlook Accounts</h3>
-                    <p>Freshly registered sessions for automation.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.12 <small>/ pc</small></span>
-                        <button onclick="buyAlert('Outlook')" class="buy-btn">Buy Now</button>
+                    <p>Aged and fresh Outlook sessions.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span class="p-price">$0.12</span>
+                        <button onclick="buyAlert('Outlook')" class="buy-btn">Buy</button>
                     </div>
                 </div>
-
                 <div class="p-card">
-                    <div class="p-icon tg-theme"><i class="fa-brands fa-telegram"></i></div>
+                    <div class="p-icon"><i class="fa-brands fa-telegram"></i></div>
                     <h3>Telegram Sessions</h3>
-                    <p>Clean Tdata and Session files for scripts.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.40 <small>/ pc</small></span>
-                        <button onclick="buyAlert('Telegram')" class="buy-btn">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="p-card">
-                    <div class="p-icon wa-theme"><i class="fa-brands fa-whatsapp"></i></div>
-                    <h3>WhatsApp Channels</h3>
-                    <p>Pre-warmed channels for broadcasting.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.60 <small>/ pc</small></span>
-                        <button onclick="buyAlert('WhatsApp')" class="buy-btn">Buy Now</button>
+                    <p>Clean Tdata & Session files.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span class="p-price">$0.40</span>
+                        <button onclick="buyAlert('Telegram')" class="buy-btn">Buy</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <footer class="main-footer">
-            <p>&copy; 2026 GrShop Marketplace. All rights reserved.</p>
+        <footer class="footer">
+            &copy; 2026 GrShop Marketplace. All rights reserved.
         </footer>
     </div>
 
-    <script src="./script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const session = localStorage.getItem("grshop_session");
+            if (session === "true") {
+                showView("main");
+                const name = localStorage.getItem("saved_name") || "Account";
+                document.getElementById("display-name").innerText = name;
+            } else {
+                showView("auth");
+            }
+
+            const profileTrigger = document.getElementById("profile-trigger");
+            const userMenu = document.getElementById("user-menu");
+
+            if (profileTrigger) {
+                profileTrigger.addEventListener("click", function(event) {
+                    event.stopPropagation();
+                    userMenu.classList.toggle("hidden");
+                });
+            }
+
+            window.addEventListener("click", function(e) {
+                if (userMenu && !userMenu.contains(e.target)) {
+                    userMenu.classList.add("hidden");
+                }
+            });
+        });
+
+        function showView(view) {
+            const auth = document.getElementById("auth-container");
+            const main = document.getElementById("main-content");
+            if (view === "main") {
+                auth.classList.add("hidden");
+                main.classList.remove("hidden");
+                document.body.style.overflow = "auto";
+            } else {
+                auth.classList.remove("hidden");
+                main.classList.add("hidden");
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        function toggleAuth(type) {
+            const login = document.getElementById("login-form");
+            const signup = document.getElementById("signup-form");
+            if (type === 'signup') {
+                login.classList.add("hidden");
+                signup.classList.remove("hidden");
+            } else {
+                signup.classList.add("hidden");
+                login.classList.remove("hidden");
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById("signup-name").value;
+            const email = document.getElementById("signup-email").value;
+            const pass = document.getElementById("signup-pass").value;
+
+            localStorage.setItem("saved_name", name);
+            localStorage.setItem("saved_email", email);
+            localStorage.setItem("saved_pass", pass);
+            localStorage.setItem("grshop_session", "true");
+
+            triggerToast("Account Created!", "success");
+            setTimeout(() => location.reload(), 1000);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById("login-email").value;
+            const pass = document.getElementById("login-pass").value;
+
+            const dbEmail = localStorage.getItem("saved_email") || "admin@grshop.com";
+            const dbPass = localStorage.getItem("saved_pass") || "123456";
+
+            if (email === dbEmail && pass === dbPass) {
+                localStorage.setItem("grshop_session", "true");
+                triggerToast("Welcome Back!", "success");
+                setTimeout(() => location.reload(), 800);
+            } else {
+                triggerToast("Invalid login!", "error");
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("grshop_session");
+            location.reload();
+        }
+
+        function buyAlert(item) {
+            triggerToast(`Processing ${item}...`, "success");
+        }
+
+        function triggerToast(msg, type) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
