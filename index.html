@@ -70,6 +70,7 @@
             color: #fff;
             margin-bottom: 30px;
             letter-spacing: -1px;
+            cursor: pointer;
         }
 
         .brand span { color: var(--primary); }
@@ -113,7 +114,7 @@
 
         /* Navbar */
         .navbar {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
             position: sticky;
@@ -130,29 +131,33 @@
             align-items: center;
         }
 
+        /* Balance Display - UI Improvement */
         .balance-box {
             background: #1c2131;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             display: flex;
             align-items: center;
             gap: 12px;
             margin-right: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .balance-box .icon { color: var(--success); font-size: 18px; }
+        .balance-box .icon { color: var(--success); font-size: 18px; transform: rotate(-25deg); }
 
         .balance-info .title {
             color: var(--success);
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
+            line-height: 1;
         }
 
         .balance-info .amount {
             color: #fff;
             font-size: 16px;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .nav-right { display: flex; align-items: center; position: relative; }
@@ -168,6 +173,8 @@
             transition: 0.3s;
         }
 
+        .user-profile:hover { background: rgba(255, 255, 255, 0.05); }
+
         .user-dropdown {
             position: absolute;
             top: calc(100% + 10px);
@@ -177,7 +184,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 10px 0;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
             display: flex;
             flex-direction: column;
             z-index: 1001;
@@ -191,19 +198,25 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            transition: 0.2s;
         }
 
-        .user-dropdown a:hover { background: rgba(255, 255, 255, 0.08); }
+        .user-dropdown a:hover { background: rgba(255, 255, 255, 0.1); }
+        .user-dropdown i { width: 20px; text-align: center; color: var(--text-muted); }
         .menu-divider { height: 1px; background: var(--border); margin: 8px 0; }
         .logout-item { color: var(--error) !important; }
+        .logout-item i { color: var(--error) !important; }
 
         /* Sections */
         .view-section { max-width: 1000px; margin: 40px auto; padding: 20px; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .content-card { background: var(--card-dark); padding: 30px; border-radius: 16px; border: 1px solid var(--border); }
+        .content-card h2 { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-size: 24px; }
+
         .form-group { margin-bottom: 20px; }
-        .form-group input {
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); }
+        .form-group input, .form-group select {
             width: 100%;
             padding: 14px;
             background: var(--input-bg);
@@ -213,12 +226,65 @@
             outline: none;
         }
 
+        /* Inventory Grid */
         .inventory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .p-card { background: var(--card-dark); padding: 25px; border-radius: 16px; border: 1px solid var(--border); }
-        .buy-btn { background: var(--success); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .p-card { 
+            background: var(--card-dark); 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 1px solid var(--border); 
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .p-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .p-card h3 { margin: 15px 0 10px; font-size: 20px; }
+        .p-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+        
+        .p-icon { font-size: 32px; color: var(--primary); }
+        .mail-theme { color: #ef4444; }
+        .outlook-theme { color: #3b82f6; }
+        .tg-theme { color: #06b6d4; }
+        .wa-theme { color: #10b981; }
 
+        .p-price { font-size: 24px; font-weight: 800; color: #fff; }
+        .buy-btn { background: var(--success); color: #fff; border: none; padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .buy-btn:hover { background: #059669; }
+
+        /* History Table */
+        .history-list { display: flex; flex-direction: column; gap: 12px; }
+        .history-item { 
+            background: rgba(255,255,255,0.03); 
+            padding: 15px; 
+            border-radius: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border: 1px solid var(--border);
+        }
+        .history-item .info h4 { font-size: 16px; margin-bottom: 4px; }
+        .history-item .info span { font-size: 12px; color: var(--text-muted); }
+        .history-item .amount { font-weight: 700; font-size: 16px; }
+        .amt-plus { color: var(--success); }
+        .amt-minus { color: var(--error); }
+
+        /* Toast Notifications */
         #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
-        .toast { background: #1c2131; color: #fff; padding: 15px 25px; border-radius: 10px; border-left: 5px solid var(--primary); margin-top: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.5s; }
+        .toast { 
+            background: #1c2131; 
+            color: #fff; 
+            padding: 16px 28px; 
+            border-radius: 12px; 
+            border-left: 5px solid var(--primary); 
+            margin-top: 10px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            transition: 0.5s;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 14px; margin-top: 40px; }
     </style>
 </head>
 <body>
@@ -240,7 +306,7 @@
                     <input type="password" id="login-pass" placeholder="Password" required>
                 </div>
                 <button type="submit" class="primary-btn">Login Now</button>
-                <p style="margin-top: 20px; font-size: 14px;">New User? <a href="#" onclick="toggleAuth('signup')" style="color: var(--primary); text-decoration: none;">Sign Up</a></p>
+                <p style="margin-top: 20px; font-size: 14px;">New User? <a href="#" onclick="toggleAuth('signup')" style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign Up</a></p>
             </form>
             <form id="signup-form" class="hidden" onsubmit="handleSignup(event)">
                 <h2>Create Account</h2>
@@ -257,17 +323,18 @@
                     <input type="password" id="signup-pass" placeholder="Password" required>
                 </div>
                 <button type="submit" class="primary-btn">Register</button>
-                <p style="margin-top: 20px; font-size: 14px;">Already have account? <a href="#" onclick="toggleAuth('login')" style="color: var(--primary); text-decoration: none;">Sign In</a></p>
+                <p style="margin-top: 20px; font-size: 14px;">Already have account? <a href="#" onclick="toggleAuth('login')" style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign In</a></p>
             </form>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content App -->
     <div id="main-content" class="hidden">
         <nav class="navbar">
             <div class="nav-container">
-                <div class="brand" onclick="renderView('market')" style="cursor:pointer">Gr<span>Shop</span></div>
+                <div class="brand" onclick="renderView('market')">Gr<span>Shop</span></div>
                 <div class="nav-right">
+                    <!-- Balance Display (Image Style) -->
                     <div class="balance-box">
                         <div class="icon"><i class="fa-solid fa-paper-plane"></i></div>
                         <div class="balance-info">
@@ -278,7 +345,7 @@
                     <div class="user-profile" id="profile-trigger">
                         <i class="fa-solid fa-circle-user"></i>
                         <span id="user-display-name">User</span>
-                        <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 11px; margin-left: 5px;"></i>
                         <div id="user-menu" class="user-dropdown hidden">
                             <a href="javascript:void(0)" onclick="renderView('deposit')"><i class="fa-solid fa-wallet"></i> Deposit</a>
                             <a href="javascript:void(0)" onclick="renderView('withdraw')"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawal</a>
@@ -293,71 +360,186 @@
         </nav>
 
         <div id="view-container">
-            <!-- Marketplace -->
+            <!-- Marketplace View -->
             <div id="view-market" class="view-section">
-                <h1 style="margin-bottom: 20px;">Marketplace</h1>
+                <div style="margin-bottom: 35px;">
+                    <h1 style="font-size: 32px; color: #fff;">Premium Marketplace</h1>
+                    <p style="color: var(--text-muted);">Trusted provider for social & mail bulk accounts.</p>
+                </div>
                 <div class="inventory-grid">
                     <div class="p-card">
-                        <i class="fa-solid fa-envelope" style="font-size: 30px; color: var(--primary);"></i>
-                        <h3>Hotmail PVA</h3>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                            <span style="font-size: 20px; font-weight: 700;">$0.10</span>
-                            <button class="buy-btn" onclick="processPurchase(0.10, 'Hotmail')">Buy Now</button>
+                        <div>
+                            <i class="fa-solid fa-envelope p-icon mail-theme"></i>
+                            <h3>Hotmail PVA</h3>
+                            <p>Fresh phone verified Hotmail accounts with recovery email.</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="p-price">$0.10</span>
+                            <button class="buy-btn" onclick="processPurchase(0.10, 'Hotmail PVA')">Buy Now</button>
                         </div>
                     </div>
-                    <!-- Add more products as needed -->
+                    <div class="p-card">
+                        <div>
+                            <i class="fa-brands fa-microsoft p-icon outlook-theme"></i>
+                            <h3>Outlook Aged</h3>
+                            <p>3-month aged high-quality Outlook sessions for mailing.</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="p-price">$0.25</span>
+                            <button class="buy-btn" onclick="processPurchase(0.25, 'Outlook Aged')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="p-card">
+                        <div>
+                            <i class="fa-brands fa-telegram p-icon tg-theme"></i>
+                            <h3>Telegram Session</h3>
+                            <p>Clean .session + tdata accounts for automation.</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="p-price">$0.45</span>
+                            <button class="buy-btn" onclick="processPurchase(0.45, 'Telegram Session')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="p-card">
+                        <div>
+                            <i class="fa-brands fa-whatsapp p-icon wa-theme"></i>
+                            <h3>WhatsApp Channel</h3>
+                            <p>Bulk channels ready for broadcasting and marketing.</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="p-price">$0.60</span>
+                            <button class="buy-btn" onclick="processPurchase(0.60, 'WhatsApp Channel')">Buy Now</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Deposit View -->
             <div id="view-deposit" class="view-section hidden">
                 <div class="content-card">
-                    <h2>Add Funds</h2>
+                    <h2><i class="fa-solid fa-circle-plus" style="color: var(--success);"></i> Add Balance</h2>
+                    <p>Load your live account balance instantly using bKash, Nagad or Crypto.</p>
+                    
                     <div class="form-group">
-                        <label>Deposit Amount ($)</label>
-                        <input type="number" id="deposit-amount" placeholder="Min $5.00">
+                        <label>Select Payment Method</label>
+                        <select id="deposit-method">
+                            <option value="bkash">bKash (Personal)</option>
+                            <option value="nagad">Nagad (Personal)</option>
+                            <option value="crypto">USDT (TRC-20)</option>
+                        </select>
                     </div>
-                    <button class="primary-btn" onclick="handleDeposit()">Proceed</button>
+                    <div class="form-group">
+                        <label>Amount to Deposit ($)</label>
+                        <input type="number" id="deposit-amount" placeholder="Min $5.00" min="5">
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-bottom: 25px; font-size: 14px;">
+                        <p style="color: #fff; margin-bottom: 5px;"><i class="fa-solid fa-circle-info"></i> Instructions:</p>
+                        <p>Send the equivalent BDT or USDT to our official number and input the Transaction ID.</p>
+                    </div>
+                    <button class="primary-btn" onclick="handleDeposit()">Deposit Now</button>
                 </div>
             </div>
-            
-            <!-- Other views go here (Withdraw, Account, Transactions) -->
-             <div id="view-withdraw" class="view-section hidden"><div class="content-card"><h2>Withdrawal</h2><p>Coming Soon...</p></div></div>
-             <div id="view-transactions" class="view-section hidden"><div class="content-card"><h2>Transactions</h2><div id="history-list">No history.</div></div></div>
-             <div id="view-account" class="view-section hidden">
+
+            <!-- Withdraw View -->
+            <div id="view-withdraw" class="view-section hidden">
                 <div class="content-card">
-                    <h2>Account Settings</h2>
-                    <p>Change Password:</p>
-                    <div class="form-group"><input type="password" id="new-pass" placeholder="New Password"></div>
-                    <button class="primary-btn" onclick="updatePassword()">Update</button>
+                    <h2><i class="fa-solid fa-money-bill-transfer" style="color: var(--error);"></i> Withdraw Earnings</h2>
+                    <p>Transfer your account balance to your external wallets.</p>
+                    
+                    <div class="form-group">
+                        <label>Withdrawal Method</label>
+                        <select id="withdraw-method">
+                            <option value="bkash">bKash</option>
+                            <option value="nagad">Nagad</option>
+                            <option value="usdt">USDT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Withdrawal Amount ($)</label>
+                        <input type="number" id="withdraw-amount" placeholder="Minimum $10.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Account Details (Number/Wallet)</label>
+                        <input type="text" id="withdraw-target" placeholder="Account ID or Wallet Address">
+                    </div>
+                    <button class="primary-btn" style="background: var(--error);" onclick="handleWithdraw()">Submit Request</button>
                 </div>
-             </div>
+            </div>
+
+            <!-- Transactions View -->
+            <div id="view-transactions" class="view-section hidden">
+                <div class="content-card">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> History</h2>
+                    <div id="history-list" class="history-list">
+                        <div style="text-align: center; color: var(--text-muted); padding: 40px 0;">No transactions yet.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Account View -->
+            <div id="view-account" class="view-section hidden">
+                <div class="content-card">
+                    <h2><i class="fa-solid fa-user-gear"></i> Account Settings</h2>
+                    <div style="margin-bottom: 30px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border);">
+                        <p style="margin-bottom: 10px;"><strong>Name:</strong> <span id="acc-name">Loading...</span></p>
+                        <p style="margin-bottom: 10px;"><strong>Email:</strong> <span id="acc-email">Loading...</span></p>
+                        <p><strong>Member Since:</strong> <span id="acc-since">Jan 2026</span></p>
+                    </div>
+
+                    <h3 style="margin-bottom: 15px;">Update Password</h3>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" id="new-pass" placeholder="Enter at least 6 characters">
+                    </div>
+                    <button class="primary-btn" onclick="updatePassword()">Save Security Changes</button>
+                </div>
+            </div>
         </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 GrShop Marketplace. Trusted Bulk Provider.</p>
+        </footer>
     </div>
 
     <script>
-        let currentUser = { balance: 0.00, history: [] };
+        // Local state
+        let currentUser = {
+            name: "Guest",
+            email: "guest@grshop.com",
+            balance: 0.00,
+            history: []
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
-            if (localStorage.getItem("grshop_session") === "true") {
+            // Check session
+            const sessionStatus = localStorage.getItem("grshop_session");
+            if (sessionStatus === "true") {
                 loadUser();
                 renderView('market');
             } else {
                 document.getElementById("auth-container").classList.remove("hidden");
             }
 
+            // Dropdown trigger
             const trigger = document.getElementById("profile-trigger");
             const menu = document.getElementById("user-menu");
             if (trigger) {
-                trigger.addEventListener("click", (e) => { e.stopPropagation(); menu.classList.toggle("hidden"); });
+                trigger.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    menu.classList.toggle("hidden");
+                });
             }
             window.addEventListener("click", () => menu.classList.add("hidden"));
         });
 
-        function renderView(viewName) {
-            const sections = ['market', 'deposit', 'withdraw', 'account', 'transactions'];
-            sections.forEach(s => document.getElementById(`view-${s}`).classList.add("hidden"));
-            document.getElementById(`view-${viewName}`).classList.remove("hidden");
+        // UI Routing
+        function renderView(view) {
+            const views = ['market', 'deposit', 'withdraw', 'transactions', 'account'];
+            views.forEach(v => document.getElementById(`view-${v}`).classList.add("hidden"));
+            document.getElementById(`view-${view}`).classList.remove("hidden");
+            
+            if(view === 'transactions') updateHistoryUI();
+            if(view === 'account') updateAccountUI();
         }
 
         function toggleAuth(mode) {
@@ -365,26 +547,42 @@
             document.getElementById("signup-form").classList.toggle("hidden", mode === 'login');
         }
 
+        // Logic Functions
         function loadUser() {
-            const data = JSON.parse(localStorage.getItem("user_data") || "{}");
-            currentUser = data;
+            const saved = JSON.parse(localStorage.getItem("user_data") || "{}");
+            const adminUser = { name: "Admin", email: "admin@grshop.com", pass: "123456", balance: 50.00, history: [] };
+            
+            if(!saved.email) {
+                localStorage.setItem("user_data", JSON.stringify(adminUser));
+                currentUser = adminUser;
+            } else {
+                currentUser = saved;
+            }
+
             document.getElementById("main-content").classList.remove("hidden");
             document.getElementById("auth-container").classList.add("hidden");
-            document.getElementById("user-display-name").innerText = data.name || "User";
+            document.getElementById("user-display-name").innerText = currentUser.name;
             updateBalanceUI();
         }
 
         function updateBalanceUI() {
-            document.getElementById("current-balance").innerText = parseFloat(currentUser.balance || 0).toFixed(2);
+            document.getElementById("current-balance").innerText = parseFloat(currentUser.balance).toFixed(2);
         }
 
+        function saveUser() {
+            localStorage.setItem("user_data", JSON.stringify(currentUser));
+            updateBalanceUI();
+        }
+
+        // Action Handlers
         function handleSignup(e) {
             e.preventDefault();
             const name = document.getElementById("signup-name").value;
             const email = document.getElementById("signup-email").value;
             const pass = document.getElementById("signup-pass").value;
+
             currentUser = { name, email, pass, balance: 0.00, history: [] };
-            localStorage.setItem("user_data", JSON.stringify(currentUser));
+            saveUser();
             localStorage.setItem("grshop_session", "true");
             location.reload();
         }
@@ -394,51 +592,131 @@
             const email = document.getElementById("login-email").value;
             const pass = document.getElementById("login-pass").value;
             const stored = JSON.parse(localStorage.getItem("user_data") || "{}");
-            if (email === (stored.email || "admin@grshop.com") && pass === (stored.pass || "123456")) {
+
+            if (email === stored.email && pass === stored.pass) {
                 localStorage.setItem("grshop_session", "true");
-                if(!stored.email) localStorage.setItem("user_data", JSON.stringify({name:"Admin", email:"admin@grshop.com", pass:"123456", balance:10.0, history:[]}));
                 location.reload();
-            } else { triggerToast("Invalid Credentials", "error"); }
+            } else {
+                triggerToast("Invalid Credentials!", "error");
+            }
         }
 
-        function handleLogout() { localStorage.removeItem("grshop_session"); location.reload(); }
+        function handleLogout() {
+            localStorage.removeItem("grshop_session");
+            location.reload();
+        }
 
         function handleDeposit() {
             const amt = parseFloat(document.getElementById("deposit-amount").value);
             if(amt >= 5) {
                 currentUser.balance += amt;
+                currentUser.history.push({
+                    title: `Deposit (${document.getElementById("deposit-method").value.toUpperCase()})`,
+                    amount: `+$${amt.toFixed(2)}`,
+                    date: new Date().toLocaleString(),
+                    type: "plus"
+                });
                 saveUser();
-                triggerToast(`Deposit of $${amt} Successful!`, "success");
+                triggerToast(`$${amt} deposited successfully!`, "success");
                 renderView('market');
-            } else { triggerToast("Min deposit $5", "error"); }
+            } else {
+                triggerToast("Min deposit is $5.00", "error");
+            }
+        }
+
+        function handleWithdraw() {
+            const amt = parseFloat(document.getElementById("withdraw-amount").value);
+            const target = document.getElementById("withdraw-target").value;
+            
+            if (isNaN(amt) || amt < 10) {
+                triggerToast("Min withdrawal $10.00", "error");
+                return;
+            }
+            if (amt > currentUser.balance) {
+                triggerToast("Insufficient Balance!", "error");
+                return;
+            }
+            if (!target) {
+                triggerToast("Enter account details!", "error");
+                return;
+            }
+
+            currentUser.balance -= amt;
+            currentUser.history.push({
+                title: `Withdraw (${document.getElementById("withdraw-method").value.toUpperCase()})`,
+                amount: `-$${amt.toFixed(2)}`,
+                date: new Date().toLocaleString(),
+                type: "minus"
+            });
+            saveUser();
+            triggerToast("Withdrawal Request Pending!", "success");
+            renderView('market');
         }
 
         function processPurchase(price, item) {
-            if(currentUser.balance >= price) {
+            if (currentUser.balance >= price) {
                 currentUser.balance -= price;
+                currentUser.history.push({
+                    title: `Purchased: ${item}`,
+                    amount: `-$${price.toFixed(2)}`,
+                    date: new Date().toLocaleString(),
+                    type: "minus"
+                });
                 saveUser();
-                triggerToast(`Purchased ${item}!`, "success");
-            } else { triggerToast("Insufficient Balance", "error"); }
+                triggerToast(`Purchased ${item}! Check mail.`, "success");
+            } else {
+                triggerToast("Low balance! Please Deposit.", "error");
+            }
         }
 
-        function saveUser() {
-            localStorage.setItem("user_data", JSON.stringify(currentUser));
-            updateBalanceUI();
-        }
-
-        function triggerToast(msg, type) {
-            const tc = document.getElementById('toast-container');
-            const t = document.createElement('div');
-            t.className = 'toast';
-            t.style.borderLeftColor = type === 'success' ? 'var(--success)' : 'var(--error)';
-            t.innerText = msg;
-            tc.appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 3000);
+        function updateAccountUI() {
+            document.getElementById("acc-name").innerText = currentUser.name;
+            document.getElementById("acc-email").innerText = currentUser.email;
         }
 
         function updatePassword() {
-            const p = document.getElementById("new-pass").value;
-            if(p.length >= 6) { currentUser.pass = p; saveUser(); triggerToast("Password Updated", "success"); }
+            const pass = document.getElementById("new-pass").value;
+            if(pass.length >= 6) {
+                currentUser.pass = pass;
+                saveUser();
+                triggerToast("Password Updated!", "success");
+            } else {
+                triggerToast("Min 6 characters required.", "error");
+            }
+        }
+
+        function updateHistoryUI() {
+            const list = document.getElementById("history-list");
+            if (currentUser.history.length === 0) return;
+            
+            list.innerHTML = "";
+            currentUser.history.slice().reverse().forEach(h => {
+                const item = document.createElement("div");
+                item.className = "history-item";
+                item.innerHTML = `
+                    <div class="info">
+                        <h4>${h.title}</h4>
+                        <span>${h.date}</span>
+                    </div>
+                    <div class="amount ${h.type === 'plus' ? 'amt-plus' : 'amt-minus'}">
+                        ${h.amount}
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function triggerToast(msg, type) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.borderLeftColor = type === 'success' ? 'var(--success)' : 'var(--error)';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
     </script>
 </body>
