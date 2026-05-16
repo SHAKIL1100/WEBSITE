@@ -12,13 +12,13 @@
 
     <div id="toast-container"></div>
 
+    <!-- Auth Section -->
     <div id="auth-container" class="auth-wrapper">
         <div class="auth-card">
             <div class="brand">Gr<span>Shop</span></div>
             
             <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
                 <h2>Sign In</h2>
-                <p class="auth-subtitle">Welcome back! Input your credentials.</p>
                 <div class="input-box">
                     <i class="fa-solid fa-envelope"></i>
                     <input type="email" id="login-email" placeholder="Email Address" required>
@@ -33,7 +33,6 @@
 
             <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
                 <h2>Create Account</h2>
-                <p class="auth-subtitle">Join us to manage your shop inventory.</p>
                 <div class="input-box">
                     <i class="fa-solid fa-user"></i>
                     <input type="text" id="signup-name" placeholder="Full Name" required>
@@ -52,77 +51,71 @@
         </div>
     </div>
 
+    <!-- Main App UI -->
     <div id="main-content" class="main-layout hidden">
         <nav class="navbar">
             <div class="nav-container">
                 <div class="brand">Gr<span>Shop</span></div>
-                <div class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#shop">Shop Inventory</a>
-                    <button onclick="handleLogout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                <div class="nav-right">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span id="display-name">Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                        
+                        <!-- Account Dropdown Menu (Like the image) -->
+                        <div id="user-menu" class="user-dropdown hidden">
+                            <a href="javascript:void(0)"><i class="fa-solid fa-wallet"></i> Deposit</a>
+                            <a href="javascript:void(0)"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawal</a>
+                            <a href="javascript:void(0)"><i class="fa-solid fa-list-check"></i> Transactions</a>
+                            <a href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> My account</a>
+                            <div class="menu-divider"></div>
+                            <a href="javascript:void(0)" onclick="handleLogout()" class="logout-item">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <header id="home" class="hero">
+        <header class="hero">
             <div class="hero-content">
                 <h1>Premium Account Solutions</h1>
-                <p>Bulk automated provider for Hotmail, Outlook, Telegram, and WhatsApp accounts with premium delivery network.</p>
+                <p>Bulk provider for Hotmail, Outlook, Telegram, and WhatsApp accounts.</p>
                 <div class="actions">
                     <a href="#shop" class="primary-btn-link">Browse Inventory</a>
-                    <a href="https://t.me/" target="_blank" class="secondary-btn"><i class="fa-brands fa-telegram"></i> Telegram Support</a>
                 </div>
             </div>
         </header>
 
         <section id="shop" class="inventory">
             <div class="section-header">
-                <h2>Store Inventory</h2>
-                <p>Fresh, bulk, and phone-verified sessions ready for instant integration.</p>
+                <h2>Available Inventory</h2>
             </div>
-            
             <div class="product-grid">
                 <div class="p-card">
                     <div class="p-icon mail-theme"><i class="fa-solid fa-envelope"></i></div>
                     <h3>Hotmail Accounts</h3>
-                    <p>Clean, un-dropped, PVA/Non-PVA mailboxes built for marketing outreach.</p>
+                    <p>Verified bulk mailboxes.</p>
                     <div class="p-footer">
-                        <span class="p-price">$0.10 <small>/ pc</small></span>
+                        <span class="p-price">$0.10</span>
                         <button onclick="buyAlert('Hotmail')" class="buy-btn">Buy Now</button>
                     </div>
                 </div>
                 <div class="p-card">
                     <div class="p-icon outlook-theme"><i class="fa-brands fa-microsoft"></i></div>
                     <h3>Outlook Accounts</h3>
-                    <p>Freshly registered Outlook sessions optimized for API and bulk operations.</p>
+                    <p>Freshly registered sessions.</p>
                     <div class="p-footer">
-                        <span class="p-price">$0.12 <small>/ pc</small></span>
+                        <span class="p-price">$0.12</span>
                         <button onclick="buyAlert('Outlook')" class="buy-btn">Buy Now</button>
-                    </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-icon tg-theme"><i class="fa-brands fa-telegram"></i></div>
-                    <h3>Telegram Sessions</h3>
-                    <p>Premium Tdata and .session dynamic files ready for automated scripts.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.40 <small>/ pc</small></span>
-                        <button onclick="buyAlert('Telegram')" class="buy-btn">Buy Now</button>
-                    </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-icon wa-theme"><i class="fa-brands fa-whatsapp"></i></div>
-                    <h3>WhatsApp Channels</h3>
-                    <p>Warmed channels and phone verification layers for bulk broadcasting.</p>
-                    <div class="p-footer">
-                        <span class="p-price">$0.60 <small>/ pc</small></span>
-                        <button onclick="buyAlert('WhatsApp')" class="buy-btn">Buy Now</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <footer class="main-footer">
-            <p>&copy; 2026 GrShop Marketplace. All rights reserved.</p>
+            <p>&copy; 2026 GrShop Marketplace.</p>
         </footer>
     </div>
 
