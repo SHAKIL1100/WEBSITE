@@ -1,176 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrShop - Premium Accounts Marketplace</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+<!-- Auth Wrapper (Login/Signup Screen) -->
+<div id="auth-container" class="auth-container">
+    <div class="auth-box">
+        <div class="auth-logo"><span>Gr</span>Shop</div>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+            <h2>Sign In</h2>
+            <p class="auth-subtitle">Welcome back! Please login to your account.</p>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="login-email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-pass" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary auth-btn">Login Now</button>
+            <p class="auth-switch">Don't have an account? <a href="javascript:void(0)" onclick="toggleAuth('signup')">Sign Up</a></p>
+        </form>
 
-    <!-- Auth Wrapper (Login/Signup Screen) -->
-    <div id="auth-container" class="auth-container">
-        <div class="auth-box">
-            <div class="auth-logo"><span>Gr</span>Shop</div>
-            
-            <!-- Login Form -->
-            <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
-                <h2>Sign In</h2>
-                <p class="auth-subtitle">Welcome back! Please login to your account.</p>
-                <div class="input-group">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="login-email" placeholder="Email Address" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="login-pass" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn btn-primary auth-btn">Login</button>
-                <p class="auth-switch">Don't have an account? <a href="#" onclick="toggleAuth( 'signup')">Sign Up</a></p>
-            </form>
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
+            <h2>Sign Up</h2>
+            <p class="auth-subtitle">Create a new account to start buying & selling.</p>
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="signup-name" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="signup-email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="signup-pass" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary auth-btn">Create Account</button>
+            <p class="auth-switch">Already have an account? <a href="javascript:void(0)" onclick="toggleAuth('login')">Sign In</a></p>
+        </form>
+    </div>
+</div>
 
-            <!-- Signup Form -->
-            <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
-                <h2>Sign Up</h2>
-                <p class="auth-subtitle">Create a new account to start buying & selling.</p>
-                <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="signup-name" placeholder="Full Name" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="signup-email" placeholder="Email Address" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="signup-pass" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn btn-primary auth-btn">Create Account</button>
-                <p class="auth-switch">Already have an account? <a href="#" onclick="toggleAuth('login')">Sign In</a></p>
-            </form>
+<!-- Main Website Content (Hidden until logged in) -->
+<div id="main-content" class="main-content hidden">
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo"><span>Gr</span>Shop</a>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#marketplace">Marketplace</a>
+                <a href="#" class="logout-link" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- Main Website Content (Hidden until logged in) -->
-    <div id="main-content" class="main-content hidden">
-        <!-- Header / Navbar -->
-        <header class="navbar">
-            <div class="container">
-                <a href="#" class="logo"><span>Gr</span>Shop</a>
-                <nav class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#marketplace">Marketplace</a>
-                    <a href="#features">Why Us</a>
-                    <a href="#" class="logout-link" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-                </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>Premium <span class="gradient-text">Account</span> Solutions</h1>
+            <p>Reliable and bulk accounts for Hotmail, Outlook, Telegram, and WhatsApp. Fast delivery with 24/7 support.</p>
+            <div class="hero-buttons">
+                <a href="#marketplace" class="btn btn-primary">Start Shopping</a>
+                <a href="#" class="btn btn-secondary">Join Community</a>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="container hero-content">
-                <h1>Buy & Sell Premium <br><span class="gradient-text">Social Accounts</span></h1>
-                <p>The most trusted bulk marketplace for Hotmail, Outlook, Telegram, and WhatsApp accounts. Fast automated delivery and premium quality guaranteed.</p>
-                <div class="hero-buttons">
-                    <a href="#marketplace" class="btn btn-primary">Browse Shop</a>
-                    <a href="https://t.me/" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-telegram"></i> Join Telegram</a>
+    <!-- Marketplace Section -->
+    <section id="marketplace" class="marketplace">
+        <div class="container">
+            <h2 class="section-title">Store Inventory</h2>
+            <div class="grid">
+                <div class="product-card">
+                    <div class="product-icon mail-color"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="product-info">
+                        <h3>Hotmail Accounts</h3>
+                        <p class="desc">High-quality PVA/Non-PVA accounts for bulk mailing.</p>
+                        <div class="price-row">
+                            <span class="price">$0.10 <small>/ pc</small></span>
+                            <button class="btn btn-buy" onclick="buyAlert('Hotmail')">Buy</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Marketplace Section -->
-        <section id="marketplace" class="marketplace">
-            <div class="container">
-                <h2 class="section-title">Available Accounts</h2>
-                <div class="grid">
-                    <!-- Product 1 -->
-                    <div class="product-card">
-                        <div class="product-icon mail-color"><i class="fa-solid fa-envelope-open-text"></i></div>
-                        <div class="product-info">
-                            <h3>Hotmail Accounts</h3>
-                            <p class="desc">Fresh or Aged Hotmail accounts. PVA (Phone Verified) available for bulk usage.</p>
-                            <div class="price-row">
-                                <span class="price">$0.10 <small>/ piece</small></span>
-                                <button class="btn btn-buy" onclick="buyAlert('Hotmail')">Buy Now</button>
-                            </div>
+                <div class="product-card">
+                    <div class="product-icon outlook-color"><i class="fa-brands fa-microsoft"></i></div>
+                    <div class="product-info">
+                        <h3>Outlook Accounts</h3>
+                        <p class="desc">Freshly created and aged Outlook sessions.</p>
+                        <div class="price-row">
+                            <span class="price">$0.12 <small>/ pc</small></span>
+                            <button class="btn btn-buy" onclick="buyAlert('Outlook')">Buy</button>
                         </div>
                     </div>
-                    <!-- Product 2 -->
-                    <div class="product-card">
-                        <div class="product-icon outlook-color"><i class="fa-brands fa-microsoft"></i></div>
-                        <div class="product-info">
-                            <h3>Outlook Accounts</h3>
-                            <p class="desc">High-quality Outlook accounts optimized for email marketing and bulk mailing.</p>
-                            <div class="price-row">
-                                <span class="price">$0.12 <small>/ piece</small></span>
-                                <button class="btn btn-buy" onclick="buyAlert('Outlook')">Buy Now</button>
-                            </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon tg-color"><i class="fa-brands fa-telegram"></i></div>
+                    <div class="product-info">
+                        <h3>Telegram Accounts</h3>
+                        <p class="desc">Tdata & Session files for automation tools.</p>
+                        <div class="price-row">
+                            <span class="price">$0.50 <small>/ pc</small></span>
+                            <button class="btn btn-buy" onclick="buyAlert('Telegram')">Buy</button>
                         </div>
                     </div>
-                    <!-- Product 3 -->
-                    <div class="product-card">
-                        <div class="product-icon tg-color"><i class="fa-brands fa-telegram"></i></div>
-                        <div class="product-info">
-                            <h3>Telegram Sessions / Tdata</h3>
-                            <p class="desc">Clean Telegram channels, groups, or session+tdata accounts for automation scripts.</p>
-                            <div class="price-row">
-                                <span class="price">$0.45 <small>/ piece</small></span>
-                                <button class="btn btn-buy" onclick="buyAlert('Telegram')">Buy Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product 4 -->
-                    <div class="product-card">
-                        <div class="product-icon wa-color"><i class="fa-brands fa-whatsapp"></i></div>
-                        <div class="product-info">
-                            <h3>WhatsApp Channels</h3>
-                            <p class="desc">Pre-warmed WhatsApp accounts & channels for marketing and group broadcasting.</p>
-                            <div class="price-row">
-                                <span class="price">$0.60 <small>/ piece</small></span>
-                                <button class="btn btn-buy" onclick="buyAlert('WhatsApp')">Buy Now</button>
-                            </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon wa-color"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="product-info">
+                        <h3>WhatsApp Channels</h3>
+                        <p class="desc">Pre-warmed channels for marketing purposes.</p>
+                        <div class="price-row">
+                            <span class="price">$0.65 <small>/ pc</small></span>
+                            <button class="btn btn-buy" onclick="buyAlert('WhatsApp')">Buy</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Features Section -->
-        <section id="features" class="features">
-            <div class="container">
-                <h2 class="section-title">Our Features</h2>
-                <div class="grid">
-                    <div class="card">
-                        <i class="fa-solid fa-bolt card-icon"></i>
-                        <h3>Instant Delivery</h3>
-                        <p>Get your account credentials instantly via email or dashboard download right after a successful payment.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-shield-halved card-icon"></i>
-                        <h3>Replacement Guarantee</h3>
-                        <p>We provide a valid replacement window if you face any login or validation errors upon purchase.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-comments card-icon"></i>
-                        <h3>24/7 Live Support</h3>
-                        <p>Dedicated developer and support staff available on Telegram to assist with any custom script setups.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 GrShop. Managed by GR Community.</p>
+        </div>
+    </footer>
+</div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <p>&copy; 2026 GrShop. All rights reserved.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Script for Handling Auth Logic -->
-    <script src="script.js"></script>
-</body>
-</html>
+<script src="script.js"></script>
