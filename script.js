@@ -1,16 +1,24 @@
 /**
  * GrShop - JavaScript Business Logic
- * Features: Auth Management, Input Validation, UI State Handling
+ * Features: Premium Auth Management, Toast Notifications, Session Control
  */
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Check if user is already logged in via LocalStorage
+    // Initializing the application state
     const userSession = localStorage.getItem("grshop_active_session");
     
+    // Check session and route to correct view
     if (userSession === "true") {
         renderApp("main");
     } else {
         renderApp("auth");
+    }
+    
+    // Setup Toast Container
+    if (!document.getElementById('toast-container')) {
+        const tc = document.createElement('div');
+        tc.id = 'toast-container';
+        document.body.appendChild(tc);
     }
 });
 
@@ -20,12 +28,12 @@ function renderApp(view) {
     const mainUI = document.getElementById("main-content");
 
     if (view === "main") {
-        authUI.classList.add("hidden");
-        mainUI.classList.remove("hidden");
+        if(authUI) authUI.classList.add("hidden");
+        if(mainUI) mainUI.classList.remove("hidden");
         document.body.style.overflow = "auto";
     } else {
-        authUI.classList.remove("hidden");
-        mainUI.classList.add("hidden");
+        if(authUI) authUI.classList.remove("hidden");
+        if(mainUI) mainUI.classList.add("hidden");
         document.body.style.overflow = "hidden";
     }
 }
@@ -36,12 +44,10 @@ function toggleAuth(mode) {
     const signupForm = document.getElementById("signup-form");
 
     if (mode === 'signup') {
-        loginForm.style.display = "none";
-        signupForm.style.display = "block";
+        loginForm.classList.add("hidden");
         signupForm.classList.remove("hidden");
     } else {
-        signupForm.style.display = "none";
-        loginForm.style.display = "block";
+        signupForm.classList.add("hidden");
         loginForm.classList.remove("hidden");
     }
 }
@@ -54,7 +60,6 @@ function handleSignup(event) {
     const email = document.getElementById("signup-email").value.trim();
     const pass = document.getElementById("signup-pass").value.trim();
 
-    // Basic Validation
     if (name.length < 3) {
         showNotify("Name is too short!", "error");
         return;
@@ -64,12 +69,12 @@ function handleSignup(event) {
         return;
     }
 
-    // Save to LocalStorage (Pseudo-Database)
+    // Pseudo-Database Storage
     localStorage.setItem("db_user_email", email);
     localStorage.setItem("db_user_pass", pass);
     localStorage.setItem("db_user_name", name);
 
-    showNotify("Account created! You can login now.", "success");
+    showNotify("Account created! Please login.", "success");
     toggleAuth('login');
 }
 
@@ -80,42 +85,53 @@ function handleLogin(event) {
     const emailInput = document.getElementById("login-email").value.trim();
     const passInput = document.getElementById("login-pass").value.trim();
 
-    // Retrieve saved data or use defaults
     const savedEmail = localStorage.getItem("db_user_email") || "admin@grshop.com";
     const savedPass = localStorage.getItem("db_user_pass") || "123456";
 
     if (emailInput === savedEmail && passInput === savedPass) {
         localStorage.setItem("grshop_active_session", "true");
-        showNotify("Login successful. Welcome back!", "success");
+        showNotify("Welcome back to GrShop!", "success");
         
-        // Delay redirect for user to see success message
         setTimeout(() => {
             renderApp("main");
-        }, 800);
+        }, 1000);
     } else {
-        showNotify("Invalid email or password.", "error");
+        showNotify("Invalid credentials. Try again.", "error");
     }
 }
 
 // --- Logout Logic ---
 function handleLogout() {
     localStorage.removeItem("grshop_active_session");
-    showNotify("Logged out successfully.", "info");
+    showNotify("Logged out. See you soon!", "info");
     setTimeout(() => {
         location.reload();
-    }, 500);
+    }, 1000);
 }
 
 // --- Purchase Action ---
 function buyAlert(product) {
-    // Beautiful alert for buying
-    const msg = `Order Initiated: ${product}\n\nTo complete payment and receive your accounts, please contact our support bot on Telegram.`;
-    alert(msg);
+    showNotify(`Redirecting to payment for ${product}...`, "info");
+    setTimeout(() => {
+        alert(`Order for ${product} initiated.\nContact support on Telegram to complete payment.`);
+    }, 500);
 }
 
-// --- Custom Notification (Toast) ---
+// --- Premium Toast Notification System ---
 function showNotify(message, type) {
-    // For simplicity, using standard alert but can be upgraded to custom HTML toast
-    console.log(`[${type.toUpperCase()}]: ${message}`);
-    alert(message);
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    let icon = "fa-circle-info";
+    if(type === 'success') icon = "fa-circle-check";
+    if(type === 'error') icon = "fa-circle-exclamation";
+
+    toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 }
