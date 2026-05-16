@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Web Showcase</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo"><span>Dev</span>Studio</a>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>Building Digital <br><span class="gradient-text">Experiences</span></h1>
+            <p>We craft high-performance web applications, automated solutions, and premium user interfaces tailored to your needs.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Work</a>
+                <a href="#contact" class="btn btn-secondary">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="grid">
+                <div class="card">
+                    <i class="fa-solid fa-code card-icon"></i>
+                    <h3>Web Development</h3>
+                    <p>Clean, modern, and fast web applications built with the latest technologies and frameworks.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-robot card-icon"></i>
+                    <h3>Automation Systems</h3>
+                    <p>Smart scripts and robust backend automation to optimize workflows and save hours of manual tasks.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-layer-group card-icon"></i>
+                    <h3>UI/UX Design</h3>
+                    <p>Premium, pixel-perfect, and highly responsive user interfaces designed for ultimate user experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="grid">
+                <div class="project-card">
+                    <div class="project-img placeholder-1"></div>
+                    <div class="project-info">
+                        <h4>Automated Control Panel</h4>
+                        <p>Web-based dashboard with real-time tracking and live notifications.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img placeholder-2"></div>
+                    <div class="project-info">
+                        <h4>E-Commerce App Interface</h4>
+                        <p>A premium layout built with focus on speed, fluid animations, and responsiveness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-box">
+                <form class="contact-form" onsubmit="event.preventDefault();">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DevStudio. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
