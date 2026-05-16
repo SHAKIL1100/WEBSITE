@@ -59,12 +59,13 @@
             <div class="nav-container">
                 <div class="brand">Gr<span>Shop</span></div>
                 <div class="nav-right">
-                    <div class="user-profile" onclick="toggleUserMenu()">
+                    <!-- Profile Click Area -->
+                    <div class="user-profile" id="profile-trigger" onclick="toggleUserMenu(event)">
                         <i class="fa-solid fa-circle-user"></i>
                         <span id="display-name">Account</span>
                         <i class="fa-solid fa-chevron-down"></i>
                         
-                        <!-- Account Dropdown Menu (Fixed & Updated) -->
+                        <!-- Account Dropdown Menu -->
                         <div id="user-menu" class="user-dropdown hidden">
                             <a href="javascript:void(0)"><i class="fa-solid fa-wallet"></i> Deposit</a>
                             <a href="javascript:void(0)"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawal</a>
@@ -99,7 +100,6 @@
             </div>
             
             <div class="product-grid">
-                <!-- Hotmail -->
                 <div class="p-card">
                     <div class="p-icon mail-theme"><i class="fa-solid fa-envelope"></i></div>
                     <h3>Hotmail Accounts</h3>
@@ -110,7 +110,6 @@
                     </div>
                 </div>
 
-                <!-- Outlook -->
                 <div class="p-card">
                     <div class="p-icon outlook-theme"><i class="fa-brands fa-microsoft"></i></div>
                     <h3>Outlook Accounts</h3>
@@ -121,7 +120,6 @@
                     </div>
                 </div>
 
-                <!-- Telegram -->
                 <div class="p-card">
                     <div class="p-icon tg-theme"><i class="fa-brands fa-telegram"></i></div>
                     <h3>Telegram Sessions</h3>
@@ -132,7 +130,6 @@
                     </div>
                 </div>
 
-                <!-- WhatsApp -->
                 <div class="p-card">
                     <div class="p-icon wa-theme"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3>WhatsApp Channels</h3>
