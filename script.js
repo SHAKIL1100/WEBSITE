@@ -1,137 +1,105 @@
-/**
- * GrShop - JavaScript Business Logic
- * Features: Premium Auth Management, Toast Notifications, Session Control
- */
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Initializing the application state
-    const userSession = localStorage.getItem("grshop_active_session");
-    
-    // Check session and route to correct view
-    if (userSession === "true") {
-        renderApp("main");
+    // Session Check
+    const session = localStorage.getItem("grshop_session");
+    if (session === "true") {
+        showView("main");
+        const name = localStorage.getItem("saved_name") || "Account";
+        document.getElementById("display-name").innerText = name;
     } else {
-        renderApp("auth");
+        showView("auth");
     }
-    
-    // Setup Toast Container
-    if (!document.getElementById('toast-container')) {
-        const tc = document.createElement('div');
-        tc.id = 'toast-container';
-        document.body.appendChild(tc);
+
+    // Dropdown Trigger - This is the fix!
+    const profileTrigger = document.getElementById("profile-trigger");
+    const userMenu = document.getElementById("user-menu");
+
+    if (profileTrigger) {
+        profileTrigger.addEventListener("click", function(event) {
+            event.stopPropagation(); // Stop event from closing menu immediately
+            userMenu.classList.toggle("hidden");
+        });
     }
+
+    // Close menu when clicking anywhere else
+    window.addEventListener("click", function(e) {
+        if (userMenu && !userMenu.contains(e.target)) {
+            userMenu.classList.add("hidden");
+        }
+    });
 });
 
-// --- UI State Controller ---
-function renderApp(view) {
-    const authUI = document.getElementById("auth-container");
-    const mainUI = document.getElementById("main-content");
-
+function showView(view) {
+    const auth = document.getElementById("auth-container");
+    const main = document.getElementById("main-content");
     if (view === "main") {
-        if(authUI) authUI.classList.add("hidden");
-        if(mainUI) mainUI.classList.remove("hidden");
+        auth.classList.add("hidden");
+        main.classList.remove("hidden");
         document.body.style.overflow = "auto";
     } else {
-        if(authUI) authUI.classList.remove("hidden");
-        if(mainUI) mainUI.classList.add("hidden");
+        auth.classList.remove("hidden");
+        main.classList.add("hidden");
         document.body.style.overflow = "hidden";
     }
 }
 
-// --- Auth Toggle (Login <-> Signup) ---
-function toggleAuth(mode) {
-    const loginForm = document.getElementById("login-form");
-    const signupForm = document.getElementById("signup-form");
-
-    if (mode === 'signup') {
-        loginForm.classList.add("hidden");
-        signupForm.classList.remove("hidden");
+function toggleAuth(type) {
+    const login = document.getElementById("login-form");
+    const signup = document.getElementById("signup-form");
+    if (type === 'signup') {
+        login.classList.add("hidden");
+        signup.classList.remove("hidden");
     } else {
-        signupForm.classList.add("hidden");
-        loginForm.classList.remove("hidden");
+        signup.classList.add("hidden");
+        login.classList.remove("hidden");
     }
 }
 
-// --- Sign Up Logic ---
-function handleSignup(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById("signup-name").value.trim();
-    const email = document.getElementById("signup-email").value.trim();
-    const pass = document.getElementById("signup-pass").value.trim();
+function handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const pass = document.getElementById("signup-pass").value;
 
-    if (name.length < 3) {
-        showNotify("Name is too short!", "error");
-        return;
-    }
-    if (pass.length < 6) {
-        showNotify("Password must be at least 6 characters.", "error");
-        return;
-    }
+    localStorage.setItem("saved_name", name);
+    localStorage.setItem("saved_email", email);
+    localStorage.setItem("saved_pass", pass);
+    localStorage.setItem("grshop_session", "true");
 
-    // Pseudo-Database Storage
-    localStorage.setItem("db_user_email", email);
-    localStorage.setItem("db_user_pass", pass);
-    localStorage.setItem("db_user_name", name);
-
-    showNotify("Account created! Please login.", "success");
-    toggleAuth('login');
+    triggerToast("Account Created Successfully!", "success");
+    setTimeout(() => location.reload(), 1000);
 }
 
-// --- Login Logic ---
-function handleLogin(event) {
-    event.preventDefault();
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const pass = document.getElementById("login-pass").value;
 
-    const emailInput = document.getElementById("login-email").value.trim();
-    const passInput = document.getElementById("login-pass").value.trim();
+    const dbEmail = localStorage.getItem("saved_email") || "admin@grshop.com";
+    const dbPass = localStorage.getItem("saved_pass") || "123456";
 
-    const savedEmail = localStorage.getItem("db_user_email") || "admin@grshop.com";
-    const savedPass = localStorage.getItem("db_user_pass") || "123456";
-
-    if (emailInput === savedEmail && passInput === savedPass) {
-        localStorage.setItem("grshop_active_session", "true");
-        showNotify("Welcome back to GrShop!", "success");
-        
-        setTimeout(() => {
-            renderApp("main");
-        }, 1000);
+    if (email === dbEmail && pass === dbPass) {
+        localStorage.setItem("grshop_session", "true");
+        triggerToast("Login Successful!", "success");
+        setTimeout(() => location.reload(), 800);
     } else {
-        showNotify("Invalid credentials. Try again.", "error");
+        triggerToast("Invalid credentials!", "error");
     }
 }
 
-// --- Logout Logic ---
 function handleLogout() {
-    localStorage.removeItem("grshop_active_session");
-    showNotify("Logged out. See you soon!", "info");
-    setTimeout(() => {
-        location.reload();
-    }, 1000);
+    localStorage.removeItem("grshop_session");
+    location.reload();
 }
 
-// --- Purchase Action ---
-function buyAlert(product) {
-    showNotify(`Redirecting to payment for ${product}...`, "info");
-    setTimeout(() => {
-        alert(`Order for ${product} initiated.\nContact support on Telegram to complete payment.`);
-    }, 500);
+function buyAlert(item) {
+    triggerToast(`Processing order for ${item}...`, "success");
 }
 
-// --- Premium Toast Notification System ---
-function showNotify(message, type) {
+function triggerToast(msg, type) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    
-    let icon = "fa-circle-info";
-    if(type === 'success') icon = "fa-circle-check";
-    if(type === 'error') icon = "fa-circle-exclamation";
-
-    toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+    toast.innerText = msg;
     container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
+    setTimeout(() => toast.remove(), 3000);
 }
