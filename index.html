@@ -12,11 +12,12 @@
 
     <div id="toast-container"></div>
 
-    <!-- Auth Section -->
+    <!-- Auth Section (Login & Signup) -->
     <div id="auth-container" class="auth-wrapper">
         <div class="auth-card">
             <div class="brand">Gr<span>Shop</span></div>
             
+            <!-- Sign In Form -->
             <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
                 <h2>Sign In</h2>
                 <div class="input-box">
@@ -31,6 +32,7 @@
                 <p class="switch-text">Don't have an account? <a href="javascript:void(0)" onclick="toggleAuth('signup')">Sign Up</a></p>
             </form>
 
+            <!-- Sign Up Form -->
             <form id="signup-form" class="auth-form hidden" onsubmit="handleSignup(event)">
                 <h2>Create Account</h2>
                 <div class="input-box">
@@ -62,7 +64,7 @@
                         <span id="display-name">Account</span>
                         <i class="fa-solid fa-chevron-down"></i>
                         
-                        <!-- Account Dropdown Menu (Like the image) -->
+                        <!-- Account Dropdown Menu (Fixed & Updated) -->
                         <div id="user-menu" class="user-dropdown hidden">
                             <a href="javascript:void(0)"><i class="fa-solid fa-wallet"></i> Deposit</a>
                             <a href="javascript:void(0)"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawal</a>
@@ -81,41 +83,70 @@
         <header class="hero">
             <div class="hero-content">
                 <h1>Premium Account Solutions</h1>
-                <p>Bulk provider for Hotmail, Outlook, Telegram, and WhatsApp accounts.</p>
+                <p>Trusted bulk provider for Hotmail, Outlook, Telegram, and WhatsApp accounts with instant delivery.</p>
                 <div class="actions">
                     <a href="#shop" class="primary-btn-link">Browse Inventory</a>
+                    <a href="https://t.me/" target="_blank" class="secondary-btn"><i class="fa-brands fa-telegram"></i> Telegram Support</a>
                 </div>
             </div>
         </header>
 
+        <!-- Product Inventory Section -->
         <section id="shop" class="inventory">
             <div class="section-header">
                 <h2>Available Inventory</h2>
+                <p>Choose from our verified high-quality accounts.</p>
             </div>
+            
             <div class="product-grid">
+                <!-- Hotmail -->
                 <div class="p-card">
                     <div class="p-icon mail-theme"><i class="fa-solid fa-envelope"></i></div>
                     <h3>Hotmail Accounts</h3>
-                    <p>Verified bulk mailboxes.</p>
+                    <p>Verified bulk mailboxes for email marketing.</p>
                     <div class="p-footer">
-                        <span class="p-price">$0.10</span>
+                        <span class="p-price">$0.10 <small>/ pc</small></span>
                         <button onclick="buyAlert('Hotmail')" class="buy-btn">Buy Now</button>
                     </div>
                 </div>
+
+                <!-- Outlook -->
                 <div class="p-card">
                     <div class="p-icon outlook-theme"><i class="fa-brands fa-microsoft"></i></div>
                     <h3>Outlook Accounts</h3>
-                    <p>Freshly registered sessions.</p>
+                    <p>Freshly registered sessions for automation.</p>
                     <div class="p-footer">
-                        <span class="p-price">$0.12</span>
+                        <span class="p-price">$0.12 <small>/ pc</small></span>
                         <button onclick="buyAlert('Outlook')" class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Telegram -->
+                <div class="p-card">
+                    <div class="p-icon tg-theme"><i class="fa-brands fa-telegram"></i></div>
+                    <h3>Telegram Sessions</h3>
+                    <p>Clean Tdata and Session files for scripts.</p>
+                    <div class="p-footer">
+                        <span class="p-price">$0.40 <small>/ pc</small></span>
+                        <button onclick="buyAlert('Telegram')" class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="p-card">
+                    <div class="p-icon wa-theme"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3>WhatsApp Channels</h3>
+                    <p>Pre-warmed channels for broadcasting.</p>
+                    <div class="p-footer">
+                        <span class="p-price">$0.60 <small>/ pc</small></span>
+                        <button onclick="buyAlert('WhatsApp')" class="buy-btn">Buy Now</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <footer class="main-footer">
-            <p>&copy; 2026 GrShop Marketplace.</p>
+            <p>&copy; 2026 GrShop Marketplace. All rights reserved.</p>
         </footer>
     </div>
 
